@@ -73,21 +73,17 @@ def check_mouse_on_button(mouse_position, button):
         button.button_color = (20, 20, 20)#如果不在，按钮恢复原来的颜色并重绘按钮
         button.draw_button()
 
-
-#TODO:
+        
 def video_display(filename):
-    import cv2
-
-    cap = cv2.VideoCapture(filename)
-
-    while cap.isOpened():
-        ret, frame = cap.read()
-        cv2.imshow('frame', frame)
-        if cv2.waitKey(40) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-    
-    # clip = VideoFileClip(filename)#加载视频
-    # clip.preview()#播放视频
+    '''插入播放一段视频'''
+    # import cv2
+    # cap = cv2.VideoCapture(filename)
+    # while cap.isOpened():
+    #     ret, frame = cap.read()
+    #     cv2.imshow('frame', frame)
+    #     if cv2.waitKey(40) & 0xFF == ord('w'):
+    #         break
+    # cap.release()
+    # cv2.destroyAllWindows()
+    clip = VideoFileClip(filename)#加载视频
+    clip.preview()#播放视频
