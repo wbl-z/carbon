@@ -62,6 +62,18 @@ def check_mouse_on_button(mouse_position, button):
 
 #TODO:
 def video_display(filename):
+    import cv2
+
+    cap = cv2.VideoCapture(filename)
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        cv2.imshow('frame', frame)
+        if cv2.waitKey(40) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
     
-    clip = VideoFileClip(filename)#加载视频
-    clip.preview()#播放视频
+    # clip = VideoFileClip(filename)#加载视频
+    # clip.preview()#播放视频
