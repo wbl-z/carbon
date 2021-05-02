@@ -1,6 +1,6 @@
 import pygame
 class Button():
-    def __init__(self, screen, centerx, centery, width, height, button_color, txt_color, message):
+    def __init__(self, screen, centerx, centery, width, height, button_color, txt_color, message, font, font_size):
         '''初始化button'''
         self.screen = screen#方便在后面的方法中用到
         self.width = width
@@ -9,7 +9,7 @@ class Button():
         self.txt_color = txt_color
         self.message = message
         self.active = False#用于实现鼠标悬停按钮的变化
-        self.font = pygame.font.SysFont(None, 40)#第一个是字体类型，会在系统中查找，第二个字体大小，第三个参数是是否为bold，第四个是是否为italic
+        self.font = pygame.font.SysFont(font, font_size)#第一个是字体类型，会在系统中查找，第二个字体大小，第三个参数是是否为bold，第四个是是否为italic
         
         self.button_rect = pygame.Rect(0, 0, self.width, self.height)#创建按钮矩形
         #调整位置
