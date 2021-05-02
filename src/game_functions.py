@@ -4,7 +4,7 @@ from moviepy.editor import *
     
 start_surface_active = True
 about_us_active = False
-background_image1 = pygame.image.load('src/images/image1.png')
+background_image1 = pygame.image.load('src/images/bcakground_start.jpg')
 
 
 def update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button):
