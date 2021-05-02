@@ -21,7 +21,8 @@ def main():
     return_button = Button(screen, screen_rect.centerx, screen_rect.centery + 210, 210, 80, (20, 20, 20), (200, 200, 200), 'return', None, 70)
     #设置文本
     about_us_message = Text(screen, screen_rect.centerx, screen_rect.centery, (255, 248, 220) , '我们是由yqs同志主导的麒深工作室', 'simsunnsimsun', 50)
-    #TODO:gf.video_display('src/images/1.mp4')
+    #播放片头动画
+    gf.video_display('src/images/1.mp4')
     #无限循环直到玩家选退出
     while True:
         gf.check_events(screen, start_button, load_button, settings_button, about_us_button, return_button)
