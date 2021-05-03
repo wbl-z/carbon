@@ -31,8 +31,9 @@ def main():
     # gf.BGM1('src/images/08. 晴れゆく空.flac')
     #无限循环直到玩家选退出
     while True:
-        
+
         gf.check_events(screen, start_button, load_button, settings_button, about_us_button, return_button, continue_button, save_button, save_and_exit_button, exit_button)
         gf.update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button, continue_button, save_button, save_and_exit_button, exit_button)
+
 
 main()
