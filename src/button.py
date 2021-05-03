@@ -1,7 +1,7 @@
 import pygame
 
 
-class Button():
+class Button:
     def __init__(self, screen, centerx, centery, width, height, button_color, txt_color, message, font, font_size):
         """初始化button"""
         self.screen = screen  # 方便在后面的方法中用到
