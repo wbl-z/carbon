@@ -9,6 +9,7 @@ pause_active = False
 background_image1 = pygame.image.load('src/images/bcakground_start.jpg')
 background_image2 = pygame.image.load('src/images/background_game.png')
 background_image3 = pygame.image.load('src/images/background_game_pause.png')
+mouse_cursor = pygame.image.load('src/images/光标.png')
 
 
 def update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button,
@@ -29,7 +30,7 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
         screen.blit(background_image1, (0, 0))
         about_us_message.draw_text()
         return_button.draw_button()
-    elif start_active == True:
+    elif start_active == True:#绘制游戏界面
         screen.blit(background_image2, (0, 0))
     elif pause_active == True:#弹出菜单
         screen.blit(background_image3, (0, 0))
@@ -37,6 +38,7 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
         save_button.draw_button()
         save_and_exit_button.draw_button()
         exit_button.draw_button()
+    # change_mouse_cursor(screen, mouse_cursor)#效率太低了，放弃
     pygame.display.update()
 
 
@@ -121,4 +123,8 @@ def video_display(filename):
     clip.preview()#播放视频
 
 
-
+def change_mouse_cursor(screen, mouse_cursor):
+    '''更改光标图形'''
+    x, y = pygame.mouse.get_pos()
+    pygame.mouse.set_visible(False)
+    screen.blit(mouse_cursor, (x, y))
