@@ -13,7 +13,7 @@ mouse_cursor = pygame.image.load('src/images/光标.png')
 
 
 def update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button,
-                  continue_button, save_button, save_and_exit_button, exit_button):
+				  continue_button, save_button, save_and_exit_button, exit_button):
 	"""更新屏幕上的所有元素"""
 	global background_image1
 	global background_image2
@@ -43,7 +43,7 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 
 
 def check_events(screen, start_button, load_button, settings_button, about_us_button, return_button,
-                 continue_button, save_button, save_and_exit_button, exit_button):
+				 continue_button, save_button, save_and_exit_button, exit_button):
 	"""监听事件，所有的鼠标点击和键盘操作都会促使for循环运行"""
 	global start_surface_active  # 一个函数中有一次global就可以了
 	global about_us_active
