@@ -133,3 +133,4 @@ def BGM1(musicfile):
     pygame.mixer.init()# 初始化
     track = pygame.mixer.music.load(musicfile)# 加载音乐文件
     pygame.mixer.music.play()# 开始播放音乐流
+#qsgg
