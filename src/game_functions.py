@@ -14,7 +14,7 @@ mouse_cursor = pygame.image.load('src/images/光标.png')
 
 def update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button,
                   continue_button, save_button, save_and_exit_button, exit_button):
-	'''更新屏幕上的所有元素'''
+	"""更新屏幕上的所有元素"""
 	global background_image1
 	global background_image2
 	global background_image3  # 其实可以不要，因为写在外面是全局变量了，所以可以直接使用，但是如果是要赋值的话，则必须要global，因为函数不知道是新定义的还是全局变量的
@@ -44,7 +44,7 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 
 def check_events(screen, start_button, load_button, settings_button, about_us_button, return_button,
                  continue_button, save_button, save_and_exit_button, exit_button):
-	'''监听事件，所有的鼠标点击和键盘操作都会促使for循环运行'''
+	"""监听事件，所有的鼠标点击和键盘操作都会促使for循环运行"""
 	global start_surface_active  # 一个函数中有一次global就可以了
 	global about_us_active
 	global background_image1
@@ -118,13 +118,13 @@ def check_mouse_on_button(mouse_position, button):
 
 
 def video_display(filename):
-	'''插入播放一段视频'''
+	"""插入播放一段视频"""
 	clip = VideoFileClip(filename)  # 加载视频
 	clip.preview()  # 播放视频
 
 
 def change_mouse_cursor(screen, mouse_cursor):
-	'''更改光标图形'''
+	"""更改光标图形"""
 	x, y = pygame.mouse.get_pos()
 	pygame.mouse.set_visible(False)
 	screen.blit(mouse_cursor, (x, y))
