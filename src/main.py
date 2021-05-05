@@ -4,11 +4,9 @@ import game_functions as gf
 from button import Button
 from text import Text
 def main():
-    pygame.init()#初始化pygame
-
-    settings = Settings()
-    # 设置窗口
-    screen = pygame.display.set_mode(flags=pygame.FULLSCREEN)#全屏
+    pygame.init() # 初始化pygame
+    settings = Settings() # 设置窗口
+    screen = pygame.display.set_mode(flags=pygame.FULLSCREEN) #全屏
     pygame.display.set_caption('carbon neutrality')#标题
     icon = pygame.image.load('src/images/icon.jpeg')#要加src目录，可能是root目录的什么原因，不能直接images/
     pygame.display.set_icon(icon)#标题图标
@@ -28,10 +26,8 @@ def main():
     about_us_message = Text(screen, screen_rect.centerx, screen_rect.centery, (255, 248, 220), '我们是由zzb同志主导的{[()]}工作室', 'simsunnsimsun', 50)
     # 播放片头动画
     gf.video_display('src/images/1.mp4')
-
     # 无限循环直到玩家选退出
     while True:
-
         gf.check_events(screen, start_button, load_button, settings_button, about_us_button, return_button, continue_button, save_button, save_and_exit_button, exit_button)
         gf.update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button, continue_button, save_button, save_and_exit_button, exit_button)
 

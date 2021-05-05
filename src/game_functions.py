@@ -1,5 +1,4 @@
 import pygame
-# import sys
 from moviepy.editor import *
 
 start_surface_active = True
@@ -118,9 +117,9 @@ def check_mouse_on_button(mouse_position, button):
 		button.draw_button()
 
 
-def video_display(filename):
+def video_display(fileName):
 	"""插入播放一段视频"""
-	clip = VideoFileClip(filename)  # 加载视频
+	clip = VideoFileClip(fileName)  # 加载视频
 	clip.preview()  # 播放视频
 
 
@@ -133,7 +132,5 @@ def change_mouse_cursor(screen, mouseCursor):
 
 def BGM1(musicFile):
 	pygame.mixer.init()  # 初始化
-	track = pygame.mixer.music.load(musicFile)  # 加载音乐文件
+	# track = pygame.mixer.music.load(musicFile)  # 加载音乐文件
 	pygame.mixer.music.play()  # 开始播放音乐流
-
-# zzb好帅呀
