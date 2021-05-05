@@ -28,6 +28,8 @@ def main():
     about_us_message = Text(screen, screen_rect.centerx, screen_rect.centery, (255, 248, 220) , '我们是由yqs同志主导的麒深工作室', 'simsunnsimsun', 50)
     #播放片头动画
     gf.video_display('src/images/1.mp4')
+    # gf.video_display('src/images/dylanf-卡农（经典钢琴版）.mp3')
+
     # gf.BGM1('src/images/08. 晴れゆく空.flac')
     #无限循环直到玩家选退出
     while True:
