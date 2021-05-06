@@ -6,11 +6,11 @@ from text import Text
 def main():
     pygame.init() # 初始化pygame
     settings = Settings() # 设置窗口
-    screen = pygame.display.set_mode(flags=pygame.FULLSCREEN) #全屏
-    pygame.display.set_caption('carbon neutrality')#标题
-    icon = pygame.image.load('src/images/icon.jpeg')#要加src目录，可能是root目录的什么原因，不能直接images/
-    pygame.display.set_icon(icon)#标题图标
-    screen_rect = screen.get_rect()#获取屏幕的rect参数
+    screen = pygame.display.set_mode(flags=pygame.FULLSCREEN) # 全屏
+    pygame.display.set_caption('carbon neutrality')# 标题
+    icon = pygame.image.load('src/images/icon.jpeg')# 要加src目录，可能是root目录的什么原因，不能直接images/
+    pygame.display.set_icon(icon)# 标题图标
+    screen_rect = screen.get_rect()# 获取屏幕的rect参数
     # 设置开始菜单按钮
     start_button = Button(screen, screen_rect.centerx, screen_rect.centery - 210, 210, 80, (20, 20, 20), (200, 200, 200), 'start', None, 70)
     load_button = Button(screen, screen_rect.centerx, screen_rect.centery - 70, 210, 80, (20, 20, 20), (200, 200, 200), 'load', None, 70)

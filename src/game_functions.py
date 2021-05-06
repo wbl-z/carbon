@@ -16,8 +16,8 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 	"""更新屏幕上的所有元素"""
 	global background_image1
 	global background_image2
-	global background_image3  # 其实可以不要，因为写在外面是全局变量了，所以可以直接使用，但是如果是要赋值的话，则必须要global，因为函数不知道是新定义的还是全局变量的
-
+	global background_image3
+	# 其实可以不要，因为写在外面是全局变量了，所以可以直接使用，但是如果是要赋值的话，则必须要global，因为函数不知道是新定义的还是全局变量的
 	# 游戏同时只能是一个状态，通过这种方式来更新屏幕
 	if start_surface_active:  # 绘制开始界面
 		screen.blit(background_image1, (0, 0))
@@ -57,8 +57,8 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 		elif event.type == pygame.KEYDOWN:  # 键盘操作
 			if event.key == pygame.K_q:
 				sys.exit()
-			elif (event.key == pygame.K_ESCAPE) and (not start_surface_active):  # 一定要加后面这个条件，否则会导致在开始界面按esc
-				# ，再按start，使得两个标志的布尔值是一样的，同时为True或False，破坏了标志唯一True的性质
+			elif (event.key == pygame.K_ESCAPE) and (not start_surface_active):
+				# 一定要加后面这个条件，否则会导致在开始界面按esc，再按start，使得两个标志的布尔值是一样的，同时为True或False，破坏了标志唯一True的性质
 				pause_active = not pause_active
 				start_active = not start_active
 
@@ -96,14 +96,11 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 					start_surface_active = True
 					screen.blit(background_image1, (0, 0))
 					about_us_active = False
-			elif pause_active:  # 在pause界面才检验
-				if continue_button.button_rect.collidepoint(mouse_position):
-					pass
-				if save_button.button_rect.collidepoint(mouse_position):
-					pass
-				if save_and_exit_button.button_rect.collidepoint(mouse_position):
-					pass
-				if exit_button.button_rect.collidepoint(mouse_position):
+			elif pause_active:  # 在 pause界面才检验
+				if continue_button.button_rect.collidepoint(mouse_position) or \
+						save_button.button_rect.collidepoint(mouse_position) or \
+						save_and_exit_button.button_rect.collidepoint(mouse_position) or \
+						exit_button.button_rect.collidepoint(mouse_position):
 					pass
 
 
@@ -132,5 +129,5 @@ def change_mouse_cursor(screen, mouseCursor):
 
 def BGM1(musicFile):
 	pygame.mixer.init()  # 初始化
-	# track = pygame.mixer.music.load(musicFile)  # 加载音乐文件
+	# track = pygame.mixer.music.load(musicFile)  # 加载音乐文件 # track是音轨，用来暂停的，暂时用不上
 	pygame.mixer.music.play()  # 开始播放音乐流
