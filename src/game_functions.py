@@ -13,7 +13,7 @@ mouse_cursor = pygame.image.load('src/images/光标.png')
 
 
 def update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button,
-				  continue_button, save_button, save_and_exit_button, exit_button):
+				  continue_button, save_button, save_and_exit_button, exit_button, lands):
 	"""更新屏幕上的所有元素"""
 	global background_image1
 	global background_image2
@@ -26,6 +26,7 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 		load_button.draw_button()
 		settings_button.draw_button()
 		about_us_button.draw_button()
+		exit_button.draw_button()
 	elif about_us_active:  # 弹出about us界面
 		screen.blit(background_image1, (0, 0))
 		about_us_message.draw_text()
@@ -58,10 +59,14 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 		elif event.type == pygame.KEYDOWN:  # 键盘操作
 			if event.key == pygame.K_q:
 				sys.exit()
-			elif (event.key == pygame.K_ESCAPE) and (not start_surface_active):  # 一定要加后面这个条件，否则会导致在开始界面按esc
-				# ，再按start，使得两个标志的布尔值是一样的，同时为True或False，破坏了标志唯一True的性质
+			elif (event.key == pygame.K_ESCAPE) and (not start_surface_active):  # 一定要加后面这个条件，否则会导致在开始界面按esc，
+												# 再按start，使得两个标志的布尔值是一样的，同时为True或False，破坏了标志唯一True的性质
 				pause_active = not pause_active
 				start_active = not start_active
+				if pygame.mixer.music.get_busy(): # 正在播放则返回True
+					pygame.mixer.music.pause()
+				else:
+					pygame.mixer.music.unpause()
 
 		elif event.type == pygame.MOUSEMOTION:  # 鼠标移动操作
 			mouse_position = pygame.mouse.get_pos()
@@ -70,6 +75,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 				check_mouse_on_button(mouse_position, load_button)
 				check_mouse_on_button(mouse_position, settings_button)
 				check_mouse_on_button(mouse_position, about_us_button)
+				check_mouse_on_button(mouse_position, exit_button)
 			elif about_us_active:  # 在关于我们界面才检验
 				check_mouse_on_button(mouse_position, return_button)
 			elif pause_active:  # 在pause界面才检验
@@ -92,6 +98,8 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 					start_surface_active = False
 					screen.blit(background_image1, (0, 0))
 					about_us_active = True
+				if exit_button.button_rect.collidepoint(mouse_position):
+					sys.exit()
 			elif about_us_active:  # 在about us界面才检验  #注意要用elif，否则点击一次后，会进入about us页面，此时该标志为True，就会进行下面的操作。使得return被点击
 				if return_button.button_rect.collidepoint(mouse_position):
 					start_surface_active = True
@@ -99,13 +107,18 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 					about_us_active = False
 			elif pause_active:  # 在pause界面才检验
 				if continue_button.button_rect.collidepoint(mouse_position):
-					pass
+					pause_active = not pause_active
+					start_active = not start_active
+					if pygame.mixer.music.get_busy(): # 正在播放则返回True
+						pygame.mixer.music.pause()
+					else:
+						pygame.mixer.music.unpause()
 				if save_button.button_rect.collidepoint(mouse_position):
-					pass
+					pass # TODO:
 				if save_and_exit_button.button_rect.collidepoint(mouse_position):
-					pass
+					pass # TODO:
 				if exit_button.button_rect.collidepoint(mouse_position):
-					pass
+					sys.exit()
 
 
 def check_mouse_on_button(mouse_position, button):
@@ -131,9 +144,16 @@ def change_mouse_cursor(screen, mouseCursor):
 	screen.blit(mouseCursor, (x, y))
 
 
-def BGM1(musicFile):
+def BGM(musicFile):
+	"""播放音乐"""
 	pygame.mixer.init()  # 初始化
-	track = pygame.mixer.music.load(musicFile)  # 加载音乐文件
-	pygame.mixer.music.play()  # 开始播放音乐流
+	pygame.mixer.music.load(musicFile)  # 加载音乐文件
+	pygame.mixer.music.play(loops = -1)  # 开始播放音乐流，第一个参数loop，表示重复次数，如（1），则先播放一次，再重复一次，共两次，-1则表示无限重复
+								#第二个start参数控制音乐从哪里开始播放，MP3 和 OGG 使用时间表示播放位置（以秒为单位）
+
+
+# def load_game_surface():
+
+
 
 

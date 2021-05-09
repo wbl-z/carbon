@@ -1,8 +1,10 @@
 import pygame
+from pygame.sprite import Group
 from settings import Settings
 import game_functions as gf
 from button import Button
 from text import Text
+from land import Land
 def main():
     pygame.init()#初始化pygame
 
@@ -14,11 +16,11 @@ def main():
     pygame.display.set_icon(icon)#标题图标
     screen_rect = screen.get_rect()#获取屏幕的rect参数
     # 设置开始菜单按钮
-    start_button = Button(screen, screen_rect.centerx, screen_rect.centery - 210, 210, 80, (20, 20, 20), (200, 200, 200), 'start', None, 70)
-    load_button = Button(screen, screen_rect.centerx, screen_rect.centery - 70, 210, 80, (20, 20, 20), (200, 200, 200), 'load', None, 70)
-    settings_button = Button(screen, screen_rect.centerx, screen_rect.centery + 70, 210, 80, (20, 20, 20), (200, 200, 200), 'settings', None, 70)
-    about_us_button = Button(screen, screen_rect.centerx, screen_rect.centery + 210, 210, 80, (20, 20, 20), (200, 200, 200), 'about us', None, 70)
-    return_button = Button(screen, screen_rect.centerx, screen_rect.centery + 210, 210, 80, (20, 20, 20), (200, 200, 200), 'return', None, 70)
+    start_button = Button(screen, screen_rect.centerx, screen_rect.centery - 190, 210, 80, (20, 20, 20), (200, 200, 200), 'start', None, 70)
+    load_button = Button(screen, screen_rect.centerx, screen_rect.centery - 90, 210, 80, (20, 20, 20), (200, 200, 200), 'load', None, 70)
+    settings_button = Button(screen, screen_rect.centerx, screen_rect.centery + 10, 210, 80, (20, 20, 20), (200, 200, 200), 'settings', None, 70)
+    about_us_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), 'about us', None, 70)
+    return_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), 'return', None, 70)
     # 设置弹出菜单按钮
     continue_button = Button(screen, screen_rect.centerx, screen_rect.centery - 210, 210, 80, (20, 20, 20), (200, 200, 200), 'continue', None, 70)
     save_button = Button(screen, screen_rect.centerx, screen_rect.centery - 70, 210, 80, (20, 20, 20), (200, 200, 200), 'save', None, 70)
@@ -26,15 +28,21 @@ def main():
     exit_button = Button(screen, screen_rect.centerx, screen_rect.centery + 210, 210, 80, (20, 20, 20), (200, 200, 200), 'exit', None, 70)
     # 设置文本
     about_us_message = Text(screen, screen_rect.centerx, screen_rect.centery, (255, 248, 220), '我们是由zzb同志主导的{[()]}工作室', 'simsunnsimsun', 50)
+    # 创建土地精灵组，玩家选项精灵组
+    lands = Group()
+    for line in range(4):
+        for rank in range(4):
+            land = Land(screen, 600 + rank * 50, 300 + line * 50, 50, 50)
+            lands.add(land)
     # 播放片头动画
-    gf.video_display('src/images/1.mp4')
-    # gf.video_display('src/images/dylanf-卡农（经典钢琴版）.mp3')
-
+    # gf.video_display('src/images/开头动画.mp4')
+    # 播放音乐
+    # gf.BGM('src/images/music.mp3')
     # 无限循环直到玩家选退出
     while True:
-
         gf.check_events(screen, start_button, load_button, settings_button, about_us_button, return_button, continue_button, save_button, save_and_exit_button, exit_button)
-        gf.update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button, continue_button, save_button, save_and_exit_button, exit_button)
+        gf.update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button, continue_button, save_button, save_and_exit_button, exit_button, lands)
 
 
 main()
+
