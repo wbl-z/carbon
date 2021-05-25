@@ -1,4 +1,9 @@
+from typing import Union
+
 import pygame
+from pygame import Surface, Rect
+from pygame.rect import RectType
+from pygame.surface import SurfaceType
 
 
 class Button:

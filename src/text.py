@@ -1,3 +1,4 @@
+from typing import Union
 import pygame
 class Text():
     '''专门用来显示文本(注意只能显示一行)'''
@@ -8,7 +9,7 @@ class Text():
         self.txt_color = txt_color
         self.message = message
         self.font = pygame.font.SysFont(font, font_size)
-        self.prepare_message()#放在__init__中，从而一开始就有
+        self.prepare_message()# 放在__init__中，从而一开始就有
 
 
     def prepare_message(self):

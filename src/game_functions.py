@@ -1,5 +1,4 @@
 import pygame
-# import sys
 from moviepy.editor import *
 import time
 
@@ -33,8 +32,8 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 	"""更新屏幕上的所有元素"""
 	global background_image1
 	global background_image2
-	global background_image3  # 其实可以不要，因为写在外面是全局变量了，所以可以直接使用，但是如果是要赋值的话，则必须要global，因为函数不知道是新定义的还是全局变量的
-
+	global background_image3
+	# 其实可以不要，因为写在外面是全局变量了，所以可以直接使用，但是如果是要赋值的话，则必须要global，因为函数不知道是新定义的还是全局变量的
 	# 游戏同时只能是一个状态，通过这种方式来更新屏幕
 	if start_surface_active:  # 绘制开始界面
 		screen.blit(background_start, (0, 0))
@@ -264,9 +263,9 @@ def check_mouse_on_button(mouse_position, button):
 		button.draw_button()
 
 
-def video_display(filename):
+def video_display(fileName):
 	"""插入播放一段视频"""
-	clip = VideoFileClip(filename)  # 加载视频
+	clip = VideoFileClip(fileName)  # 加载视频
 	clip.preview()  # 播放视频
 
 
