@@ -1,19 +1,35 @@
 import pygame
 # import sys
 from moviepy.editor import *
+import time
+
 
 start_surface_active = True
 start_active = False
 about_us_active = False
 pause_active = False
-background_image1 = pygame.image.load('src/images/background_start.jpg')
-background_image2 = pygame.image.load('src/images/background_game.png')
-background_image3 = pygame.image.load('src/images/background_game_pause.png')
-mouse_cursor = pygame.image.load('src/images/光标.png')
+
+trees_surface_active = True
+factory_surface_active = False
+propaganda_surface_active = False
+
+tree_surface = pygame.image.load('src/images/tree_surface.png')
+factory_surface = pygame.image.load('src/images/factory_surface.png')
+propaganda_surface = pygame.image.load('src/images/propaganda_surface.png')
+background_game_pause = pygame.image.load('src/images/background_game_pause.png')
+background_start = pygame.image.load('src/images/background_start.jpg')
+# mouse_cursor = pygame.image.load('src/images/光标.png')
+# trees_image = pygame.image.load('src/images/land_image.bmp')
+# factory_image = pygame.image.load('src/images/land_image.bmp')
+# propaganda_image = pygame.image.load('src/images/land_image.bmp')
+year = 21
+month = 1
 
 
 def update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button,
-				  continue_button, save_button, save_and_exit_button, exit_button, lands):
+				  continue_button, save_button, save_and_exit_button, exit_button, factory_button, money_text,
+				   date_text, land_text, c_text, support_text, tree1, tree2, tree3, factory1, factory2, factory3,
+				    propaganda1, propaganda2, propaganda3):
 	"""更新屏幕上的所有元素"""
 	global background_image1
 	global background_image2
@@ -21,20 +37,40 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 
 	# 游戏同时只能是一个状态，通过这种方式来更新屏幕
 	if start_surface_active:  # 绘制开始界面
-		screen.blit(background_image1, (0, 0))
+		screen.blit(background_start, (0, 0))
 		start_button.draw_button()
 		load_button.draw_button()
 		settings_button.draw_button()
 		about_us_button.draw_button()
 		exit_button.draw_button()
 	elif about_us_active:  # 弹出about us界面
-		screen.blit(background_image1, (0, 0))
+		screen.blit(background_start, (0, 0))
 		about_us_message.draw_text()
 		return_button.draw_button()
 	elif start_active:  # 绘制游戏界面
-		screen.blit(background_image2, (0, 0))
+		if trees_surface_active:#树界面下的界面更新
+			screen.blit(tree_surface, (0, 0))
+			tree1.draw()
+			tree2.draw()
+			tree3.draw()
+		elif factory_surface_active:#工厂界面下的界面更新
+			screen.blit(factory_surface, (0, 0))
+			factory1.draw()
+			factory2.draw()
+			factory3.draw()
+		elif propaganda_surface_active:#宣传界面下的界面更新
+			screen.blit(propaganda_surface, (0, 0))#TODO：
+			propaganda1.draw()
+			propaganda2.draw()
+			propaganda3.draw()
+		#一直保持更新的数据
+		money_text.draw_text()
+		date_text.draw_text()
+		land_text.draw_text()
+		c_text.draw_text()
+		support_text.draw_text()
 	elif pause_active:  # 弹出菜单
-		screen.blit(background_image3, (0, 0))
+		screen.blit(background_game_pause, (0, 0))
 		continue_button.draw_button()
 		save_button.draw_button()
 		save_and_exit_button.draw_button()
@@ -44,13 +80,18 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 
 
 def check_events(screen, start_button, load_button, settings_button, about_us_button, return_button,
-				 continue_button, save_button, save_and_exit_button, exit_button):
+				 continue_button, save_button, save_and_exit_button, exit_button, trees_button,
+				  factory_button, propaganda_button, tree1, tree2, tree3, factory1, factory2, factory3,
+				   propaganda1, propaganda2, propaganda3):
 	"""监听事件，所有的鼠标点击和键盘操作都会促使for循环运行"""
 	global start_surface_active  # 一个函数中有一次global就可以了
 	global about_us_active
 	global background_image1
 	global start_active
 	global pause_active
+	global trees_surface_active
+	global factory_surface_active
+	global propaganda_surface_active
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -119,6 +160,98 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 					pass # TODO:
 				if exit_button.button_rect.collidepoint(mouse_position):
 					sys.exit()
+			elif start_active:	#在游戏界面检验
+				if trees_button.button_rect.collidepoint(mouse_position):
+					trees_surface_active = True
+					factory_surface_active = False
+					propaganda_surface_active = False
+				if factory_button.button_rect.collidepoint(mouse_position):
+					trees_surface_active = False
+					factory_surface_active = True
+					propaganda_surface_active = False
+				if propaganda_button.button_rect.collidepoint(mouse_position):
+					trees_surface_active = False
+					factory_surface_active = False
+					propaganda_surface_active = True
+				
+				if trees_surface_active:#在树的界面检验加减
+					if tree1.add_button.button_rect.collidepoint(mouse_position):
+						tree1.num += 1
+						tree1.text.message = str(tree1.num)
+						tree1.text.prepare_message()
+					if tree1.subtract_button.button_rect.collidepoint(mouse_position) and tree1.num > 0:
+						tree1.num -= 1
+						tree1.text.message = str(tree1.num)
+						tree1.text.prepare_message()
+					if tree2.add_button.button_rect.collidepoint(mouse_position):
+						tree2.num += 1
+						tree2.text.message = str(tree2.num)
+						tree2.text.prepare_message()
+					if tree2.subtract_button.button_rect.collidepoint(mouse_position) and tree2.num > 0:
+						tree2.num -= 1
+						tree2.text.message = str(tree2.num)
+						tree2.text.prepare_message()
+					if tree3.add_button.button_rect.collidepoint(mouse_position):
+						tree3.num += 1
+						tree3.text.message = str(tree3.num)
+						tree3.text.prepare_message()
+					if tree3.subtract_button.button_rect.collidepoint(mouse_position) and tree3.num > 0:
+						tree3.num -= 1
+						tree3.text.message = str(tree3.num)
+						tree3.text.prepare_message()
+				elif factory_surface_active:
+					if factory1.add_button.button_rect.collidepoint(mouse_position):
+						factory1.num += 1
+						factory1.text.message = str(factory1.num)
+						factory1.text.prepare_message()
+					if factory1.subtract_button.button_rect.collidepoint(mouse_position) and factory1.num > 0:
+						factory1.num -= 1
+						factory1.text.message = str(factory1.num)
+						factory1.text.prepare_message()
+					if factory2.add_button.button_rect.collidepoint(mouse_position):
+						factory2.num += 1
+						factory2.text.message = str(factory2.num)
+						factory2.text.prepare_message()
+					if factory2.subtract_button.button_rect.collidepoint(mouse_position) and factory2.num > 0:
+						factory2.num -= 1
+						factory2.text.message = str(factory2.num)
+						factory2.text.prepare_message()
+					if factory3.add_button.button_rect.collidepoint(mouse_position):
+						factory3.num += 1
+						factory3.text.message = str(factory3.num)
+						factory3.text.prepare_message()
+					if factory3.subtract_button.button_rect.collidepoint(mouse_position) and factory3.num > 0:
+						factory3.num -= 1
+						factory3.text.message = str(factory3.num)
+						factory3.text.prepare_message()
+				elif propaganda_surface_active:
+					if propaganda1.add_button.button_rect.collidepoint(mouse_position):
+						propaganda1.num += 1
+						propaganda1.text.message = str(propaganda1.num)
+						propaganda1.text.prepare_message()
+					if propaganda1.subtract_button.button_rect.collidepoint(mouse_position) and propaganda1.num > 0:
+						propaganda1.num -= 1
+						propaganda1.text.message = str(propaganda1.num)
+						propaganda1.text.prepare_message()
+					if propaganda2.add_button.button_rect.collidepoint(mouse_position):
+						propaganda2.num += 1
+						propaganda2.text.message = str(propaganda2.num)
+						propaganda2.text.prepare_message()
+					if propaganda2.subtract_button.button_rect.collidepoint(mouse_position) and propaganda2.num > 0:
+						propaganda2.num -= 1
+						propaganda2.text.message = str(propaganda2.num)
+						propaganda2.text.prepare_message()
+					if propaganda3.add_button.button_rect.collidepoint(mouse_position):
+						propaganda3.num += 1
+						propaganda3.text.message = str(propaganda3.num)
+						propaganda3.text.prepare_message()
+					if propaganda3.subtract_button.button_rect.collidepoint(mouse_position) and propaganda3.num > 0:
+						propaganda3.num -= 1
+						propaganda3.text.message = str(propaganda3.num)
+						propaganda3.text.prepare_message()
+
+
+
 
 
 def check_mouse_on_button(mouse_position, button):
@@ -152,8 +285,16 @@ def BGM(musicFile):
 								#第二个start参数控制音乐从哪里开始播放，MP3 和 OGG 使用时间表示播放位置（以秒为单位）
 
 
-# def load_game_surface():
+def update_data(money_text, date_text, land_text, c_text, support_text):
+	global year
+	global month
+	if start_active:#在游戏状态才更新数据
+		month += 1/10
+		if month >= 13:
+			month = 1
+			year += 1
+		date_text.message = str(int(year)) + '年' + str(int(month)) + '月'
+		date_text.prepare_message()
 
-
-
+		
 
