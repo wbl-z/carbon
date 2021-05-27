@@ -136,14 +136,14 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 					pass  # TODO:设置：难度，语言
 				if about_us_button.button_rect.collidepoint(mouse_position):
 					start_surface_active = False
-					screen.blit(background_image1, (0, 0))
+					# screen.blit(background_image1, (0, 0))
 					about_us_active = True
 				if exit_button.button_rect.collidepoint(mouse_position):
 					sys.exit()
 			elif about_us_active:  # 在about us界面才检验  #注意要用elif，否则点击一次后，会进入about us页面，此时该标志为True，就会进行下面的操作。使得return被点击
 				if return_button.button_rect.collidepoint(mouse_position):
 					start_surface_active = True
-					screen.blit(background_image1, (0, 0))
+					# screen.blit(background_image1, (0, 0))
 					about_us_active = False
 			elif pause_active:  # 在pause界面才检验
 				if continue_button.button_rect.collidepoint(mouse_position):
@@ -248,6 +248,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 						propaganda3.num -= 1
 						propaganda3.text.message = str(propaganda3.num)
 						propaganda3.text.prepare_message()
+
 
 
 
