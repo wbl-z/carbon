@@ -79,7 +79,7 @@ def main():
         
         if (time.time() - last_time) > 1 and gf.game_active():
             last_time = time.time()
-            gf.update_data(money_text, date_text, land_text, c_num_text, support_text)
+            gf.update_data(money_text, date_text, land_text, c_num_text, support_text, tree1, tree2, tree3, factory1, factory2, factory3, propaganda1, propaganda2, propaganda3)
         gf.check_events(screen, start_button, load_button, settings_button, about_us_button, return_button, continue_button, save_button, save_and_exit_button, exit_button, ok_button, trees_button, factory_button, propaganda_button, tree1, tree2, tree3, factory1, factory2, factory3, propaganda1, propaganda2, propaganda3)
         gf.update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button, continue_button, save_button, save_and_exit_button, exit_button, ok_button, factory_button, money_text, date_text, land_text, c_text, c_num_text, support_text, tree1, tree2, tree3, factory1, factory2, factory3, propaganda1, propaganda2, propaganda3)
 
