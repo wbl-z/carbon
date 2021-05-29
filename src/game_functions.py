@@ -159,7 +159,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 			if event.key == pygame.K_q:
 				sys.exit()
 			elif ((event.key == pygame.K_ESCAPE) and (not start_surface_active) and not preface1_active
-			 and not preface2_active and not win_ending_acitve and not defeat_ending_active
+			 and not preface2_active and not preface3_active and not win_ending_acitve and not defeat_ending_active
 			  and not support_warning_active and not money_warning_active and not c_warning_active):
 														# 一定要加后面这个条件，否则会导致在开始界面按esc，
 														# 再按start，使得两个标志的布尔值是一样的，同时为True或False，破坏了标志唯一True的性质

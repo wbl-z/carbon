@@ -64,7 +64,7 @@ def main():
     propaganda2 = Unit(screen, screen_rect.centerx, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
     propaganda3 = Unit(screen, screen_rect.centerx + 345, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
     # 播放片头动画
-    # gf.video_display('src/images/开头动画 .mp4')
+    gf.video_display('src/images/开头动画 .mp4')
     # 播放音乐
     # gf.BGM('src/images/music.mp3')
     # 无限循环直到玩家选退出
