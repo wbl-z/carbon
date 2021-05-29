@@ -18,16 +18,18 @@ def main():
     pygame.display.set_icon(icon)# 标题图标
     screen_rect = screen.get_rect()# 获取屏幕的rect参数
     # 设置开始菜单按钮
-    start_button = Button(screen, screen_rect.centerx, screen_rect.centery - 190, 210, 80, (20, 20, 20), (200, 200, 200), 'start', None, 70)
-    load_button = Button(screen, screen_rect.centerx, screen_rect.centery - 90, 210, 80, (20, 20, 20), (200, 200, 200), 'load', None, 70)
-    settings_button = Button(screen, screen_rect.centerx, screen_rect.centery + 10, 210, 80, (20, 20, 20), (200, 200, 200), 'settings', None, 70)
-    about_us_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), 'about us', None, 70)
-    return_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), 'return', None, 70)
+    start_button = Button(screen, screen_rect.centerx, screen_rect.centery - 190, 210, 80, (20, 20, 20), (200, 200, 200), '开始游戏', 'simsunnsimsun', 50)
+    load_button = Button(screen, screen_rect.centerx, screen_rect.centery - 90, 210, 80, (20, 20, 20), (200, 200, 200), '加载存档', 'simsunnsimsun', 50)
+    settings_button = Button(screen, screen_rect.centerx, screen_rect.centery + 10, 210, 80, (20, 20, 20), (200, 200, 200), '设置', 'simsunnsimsun', 50)
+    about_us_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), '关于我们', 'simsunnsimsun', 50)
+    return_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), '返回', 'simsunnsimsun', 50)
     # 设置弹出菜单按钮
-    continue_button = Button(screen, screen_rect.centerx, screen_rect.centery - 210, 210, 80, (20, 20, 20), (200, 200, 200), 'continue', None, 70)
-    save_button = Button(screen, screen_rect.centerx, screen_rect.centery - 70, 210, 80, (20, 20, 20), (200, 200, 200), 'save', None, 70)
-    save_and_exit_button = Button(screen, screen_rect.centerx, screen_rect.centery + 70, 210, 80, (20, 20, 20), (200, 200, 200), 'save&exit', None, 70)
-    exit_button = Button(screen, screen_rect.centerx, screen_rect.centery + 210, 210, 80, (20, 20, 20), (200, 200, 200), 'exit', None, 70)
+    continue_button = Button(screen, screen_rect.centerx, screen_rect.centery - 210, 210, 80, (20, 20, 20), (200, 200, 200), '继续游戏', 'simsunnsimsun', 50)
+    save_button = Button(screen, screen_rect.centerx, screen_rect.centery - 70, 210, 80, (20, 20, 20), (200, 200, 200), '保存游戏', 'simsunnsimsun', 50)
+    save_and_exit_button = Button(screen, screen_rect.centerx, screen_rect.centery + 70, 210, 80, (20, 20, 20), (200, 200, 200), '保存&退出', 'simsunnsimsun', 50)
+    exit_button = Button(screen, screen_rect.centerx, screen_rect.centery + 210, 210, 80, (20, 20, 20), (200, 200, 200), '退出', 'simsunnsimsun', 50)
+    ok_button = Button(screen, screen_rect.centerx, screen_rect.centery + 210, 210, 80, (20, 20, 20), (200, 200, 200), 'OK', 'simsunnsimsun', 50)
+
     # 设置文本
     about_us_message = Text(screen, screen_rect.centerx, screen_rect.centery, (255, 248, 220), '我们是由zzb同志主导的{[()]}工作室', 'simsunnsimsun', 50)
     # 创建土地精灵组，玩家选项精灵组
@@ -46,22 +48,23 @@ def main():
     money_text = Text(screen, screen_rect.width - 100, screen_rect.height - 40, (0, 0, 0), '资金', 'simsunnsimsun', 30)
     date_text = Text(screen, 100, 40, (0, 0, 0), '时间', 'simsunnsimsun', 30)
     land_text = Text(screen, 100, screen_rect.height - 40, (0, 0, 0), '土地剩余', 'simsunnsimsun', 30)
-    c_text = Text(screen, screen_rect.centerx, 40, (0, 0, 0), '碳排放', 'simsunnsimsun', 30)
+    c_text = Text(screen, screen_rect.width - 100, screen_rect.height / 2 - 20, (0, 0, 0), '碳排放', 'simsunnsimsun', 30)
+    c_num_text = Text(screen, screen_rect.width - 100, screen_rect.height / 2 + 20, (0, 0, 0), '碳排放', 'simsunnsimsun', 60)
     support_text = Text(screen, screen_rect.width - 100, 40, (0, 0, 0), '支持率', 'simsunnsimsun', 30)
     #3.1树的三个组件
-    tree1 = Unit(screen, screen_rect.centerx - 400, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
-    tree2 = Unit(screen, screen_rect.centerx, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
-    tree3 = Unit(screen, screen_rect.centerx + 400, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
+    tree1 = Unit(screen, screen_rect.centerx - 353, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
+    tree2 = Unit(screen, screen_rect.centerx + 5, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
+    tree3 = Unit(screen, screen_rect.centerx + 367, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
     #3.2工厂的三个组件
-    factory1 = Unit(screen, screen_rect.centerx - 400, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
-    factory2 = Unit(screen, screen_rect.centerx, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
-    factory3 = Unit(screen, screen_rect.centerx + 400, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
+    factory1 = Unit(screen, screen_rect.centerx - 375, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
+    factory2 = Unit(screen, screen_rect.centerx, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
+    factory3 = Unit(screen, screen_rect.centerx + 345, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
     #3.3宣传的三个组件
-    propaganda1 = Unit(screen, screen_rect.centerx - 400, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
-    propaganda2 = Unit(screen, screen_rect.centerx, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
-    propaganda3 = Unit(screen, screen_rect.centerx + 400, screen_rect.centery + 150, 210, 80, (20, 20, 20), (200, 200, 200), '数目', 'simsunnsimsun', 30)
+    propaganda1 = Unit(screen, screen_rect.centerx - 375, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
+    propaganda2 = Unit(screen, screen_rect.centerx, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
+    propaganda3 = Unit(screen, screen_rect.centerx + 345, screen_rect.centery + 127, 210, 80, (20, 20, 20), (0, 205, 102), '数目', 'simsunnsimsun', 30)
     # 播放片头动画
-    # gf.video_display('src/images/开头动画0.mp4')
+    # gf.video_display('src/images/开头动画 .mp4')
     # 播放音乐
     # gf.BGM('src/images/music.mp3')
     # 无限循环直到玩家选退出
@@ -74,11 +77,11 @@ def main():
     last_time = 0
     while True:
         
-        if (time.time() - last_time) > 1:
+        if (time.time() - last_time) > 1 and gf.game_active():
             last_time = time.time()
-            gf.update_data(money_text, date_text, land_text, c_text, support_text)
-        gf.check_events(screen, start_button, load_button, settings_button, about_us_button, return_button, continue_button, save_button, save_and_exit_button, exit_button, trees_button, factory_button, propaganda_button, tree1, tree2, tree3, factory1, factory2, factory3, propaganda1, propaganda2, propaganda3)
-        gf.update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button, continue_button, save_button, save_and_exit_button, exit_button, factory_button, money_text, date_text, land_text, c_text, support_text, tree1, tree2, tree3, factory1, factory2, factory3, propaganda1, propaganda2, propaganda3)
+            gf.update_data(money_text, date_text, land_text, c_num_text, support_text)
+        gf.check_events(screen, start_button, load_button, settings_button, about_us_button, return_button, continue_button, save_button, save_and_exit_button, exit_button, ok_button, trees_button, factory_button, propaganda_button, tree1, tree2, tree3, factory1, factory2, factory3, propaganda1, propaganda2, propaganda3)
+        gf.update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button, continue_button, save_button, save_and_exit_button, exit_button, ok_button, factory_button, money_text, date_text, land_text, c_text, c_num_text, support_text, tree1, tree2, tree3, factory1, factory2, factory3, propaganda1, propaganda2, propaganda3)
 
 main()
 

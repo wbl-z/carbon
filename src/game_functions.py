@@ -4,9 +4,14 @@ import time
 
 
 start_surface_active = True
+preface1_active = False
+preface2_active = False
+preface3_active = False
 start_active = False
 about_us_active = False
 pause_active = False
+win_ending_acitve = False
+defeat_ending_active = False
 
 trees_surface_active = True
 factory_surface_active = False
@@ -17,17 +22,19 @@ factory_surface = pygame.image.load('src/images/factory_surface.png')
 propaganda_surface = pygame.image.load('src/images/propaganda_surface.png')
 background_game_pause = pygame.image.load('src/images/background_game_pause.png')
 background_start = pygame.image.load('src/images/background_start.jpg')
+preface1 = pygame.image.load('src/images/preface1.png')
+preface2 = pygame.image.load('src/images/preface2.png')
+preface3 = pygame.image.load('src/images/preface3.png')
+win_ending = pygame.image.load('src/images/background_start.jpg')
+defeat_ending = pygame.image.load('src/images/background_start.jpg')
 # mouse_cursor = pygame.image.load('src/images/光标.png')
-# trees_image = pygame.image.load('src/images/land_image.bmp')
-# factory_image = pygame.image.load('src/images/land_image.bmp')
-# propaganda_image = pygame.image.load('src/images/land_image.bmp')
 year = 21
 month = 1
 
 
 def update_screen(screen, start_button, load_button, settings_button, about_us_button, about_us_message, return_button,
-				  continue_button, save_button, save_and_exit_button, exit_button, factory_button, money_text,
-				   date_text, land_text, c_text, support_text, tree1, tree2, tree3, factory1, factory2, factory3,
+				  continue_button, save_button, save_and_exit_button, exit_button, ok_button, factory_button, money_text,
+				   date_text, land_text, c_text, c_num_text, support_text, tree1, tree2, tree3, factory1, factory2, factory3,
 				    propaganda1, propaganda2, propaganda3):
 	"""更新屏幕上的所有元素"""
 	global background_image1
@@ -67,6 +74,7 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 		date_text.draw_text()
 		land_text.draw_text()
 		c_text.draw_text()
+		c_num_text.draw_text()
 		support_text.draw_text()
 	elif pause_active:  # 弹出菜单
 		screen.blit(background_game_pause, (0, 0))
@@ -74,12 +82,27 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 		save_button.draw_button()
 		save_and_exit_button.draw_button()
 		exit_button.draw_button()
+	elif preface1_active:
+		screen.blit(preface1, (0, 0))
+		ok_button.draw_button()
+	elif preface2_active:
+		screen.blit(preface2, (0, 0))
+		ok_button.draw_button()
+	elif preface3_active:
+		screen.blit(preface3, (0, 0))
+		ok_button.draw_button()
+	elif win_ending_acitve:
+		screen.blit(win_ending, (0, 0))
+		exit_button.draw_button()
+	elif defeat_ending_active:
+		screen.blit(defeat_ending, (0, 0))
+		exit_button.draw_button()
 	# change_mouse_cursor(screen, mouse_cursor)#效率太低了，放弃
 	pygame.display.update()
 
 
 def check_events(screen, start_button, load_button, settings_button, about_us_button, return_button,
-				 continue_button, save_button, save_and_exit_button, exit_button, trees_button,
+				 continue_button, save_button, save_and_exit_button, exit_button, ok_button, trees_button,
 				  factory_button, propaganda_button, tree1, tree2, tree3, factory1, factory2, factory3,
 				   propaganda1, propaganda2, propaganda3):
 	"""监听事件，所有的鼠标点击和键盘操作都会促使for循环运行"""
@@ -88,9 +111,14 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 	global background_image1
 	global start_active
 	global pause_active
+	global preface1_active
+	global preface2_active
+	global preface3_active
 	global trees_surface_active
 	global factory_surface_active
 	global propaganda_surface_active
+	global win_ending_acitve
+	global defeat_ending_active
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -99,7 +127,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 		elif event.type == pygame.KEYDOWN:  # 键盘操作
 			if event.key == pygame.K_q:
 				sys.exit()
-			elif (event.key == pygame.K_ESCAPE) and (not start_surface_active):  # 一定要加后面这个条件，否则会导致在开始界面按esc，
+			elif (event.key == pygame.K_ESCAPE) and (not start_surface_active) and not preface1_active and not preface2_active and not win_ending_acitve and not defeat_ending_active:  # 一定要加后面这个条件，否则会导致在开始界面按esc，
 												# 再按start，使得两个标志的布尔值是一样的，同时为True或False，破坏了标志唯一True的性质
 				pause_active = not pause_active
 				start_active = not start_active
@@ -123,12 +151,14 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 				check_mouse_on_button(mouse_position, save_button)
 				check_mouse_on_button(mouse_position, save_and_exit_button)
 				check_mouse_on_button(mouse_position, exit_button)
+			elif preface1_active or preface2_active or win_ending_acitve or defeat_ending_active:
+				check_mouse_on_button(mouse_position, ok_button)
 
 		elif event.type == pygame.MOUSEBUTTONDOWN:  # 鼠标点击操作
 			mouse_position = pygame.mouse.get_pos()
 			if start_surface_active:  # 在开始界面才检验
 				if start_button.button_rect.collidepoint(mouse_position):  # 开始游戏
-					start_active = True
+					preface1_active = True
 					start_surface_active = False
 				if load_button.button_rect.collidepoint(mouse_position):
 					pass  # TODO:加载存档
@@ -248,9 +278,21 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 						propaganda3.num -= 1
 						propaganda3.text.message = str(propaganda3.num)
 						propaganda3.text.prepare_message()
-
-
-
+			elif preface1_active:
+				if ok_button.button_rect.collidepoint(mouse_position):
+					preface1_active = False
+					preface2_active = True
+			elif preface2_active:
+				if ok_button.button_rect.collidepoint(mouse_position):
+					preface2_active = False
+					preface3_active = True
+			elif preface3_active:
+				if ok_button.button_rect.collidepoint(mouse_position):
+					preface3_active = False
+					start_active = True
+			elif win_ending_acitve or defeat_ending_active:
+				if exit_button.button_rect.collidepoint(mouse_position):
+					sys.exit()
 
 
 
@@ -285,7 +327,11 @@ def BGM(musicFile):
 								#第二个start参数控制音乐从哪里开始播放，MP3 和 OGG 使用时间表示播放位置（以秒为单位）
 
 
-def update_data(money_text, date_text, land_text, c_text, support_text):
+def game_active():#将游戏状态传递给main函数
+	return start_active
+
+
+def update_data(money_text, date_text, land_text, c_num_text, support_text):
 	global year
 	global month
 	if start_active:#在游戏状态才更新数据
