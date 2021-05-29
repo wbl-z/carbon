@@ -16,6 +16,9 @@ defeat_ending_active = False
 support_warning_active = False
 money_warning_active = False
 c_warning_active = False
+support_time = 1
+money_time = 1
+c_time =1
 
 trees_surface_active = True
 factory_surface_active = False
@@ -26,6 +29,7 @@ factory_surface = pygame.image.load('src/images/factory_surface.png')
 propaganda_surface = pygame.image.load('src/images/propaganda_surface.png')
 background_game_pause = pygame.image.load('src/images/background_game_pause.png')
 background_start = pygame.image.load('src/images/background_start.jpg')
+about_us = pygame.image.load('src/images/about_us.png')
 preface1 = pygame.image.load('src/images/preface1.png')
 preface2 = pygame.image.load('src/images/preface2.png')
 preface3 = pygame.image.load('src/images/preface3.png')
@@ -62,8 +66,8 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 		about_us_button.draw_button()
 		exit_button.draw_button()
 	elif about_us_active:  # 弹出about us界面
-		screen.blit(background_start, (0, 0))
-		about_us_message.draw_text()
+		screen.blit(about_us, (0, 0))
+		# about_us_message.draw_text()
 		return_button.draw_button()
 	elif start_active:  # 绘制游戏界面
 		if trees_surface_active:#树界面下的界面更新
@@ -77,7 +81,7 @@ def update_screen(screen, start_button, load_button, settings_button, about_us_b
 			factory2.draw()
 			factory3.draw()
 		elif propaganda_surface_active:#宣传界面下的界面更新
-			screen.blit(propaganda_surface, (0, 0))#TODO：
+			screen.blit(propaganda_surface, (0, 0))
 			propaganda1.draw()
 			propaganda2.draw()
 			propaganda3.draw()
@@ -181,9 +185,10 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 				check_mouse_on_button(mouse_position, save_button)
 				check_mouse_on_button(mouse_position, save_and_exit_button)
 				check_mouse_on_button(mouse_position, exit_button)
-			elif preface1_active or preface2_active or preface3_active or win_ending_acitve or defeat_ending_active or support_warning_active or money_warning_active or c_warning_active:
+			elif preface1_active or preface2_active or preface3_active or support_warning_active or money_warning_active or c_warning_active:
 				check_mouse_on_button(mouse_position, ok_button)
-
+			elif win_ending_acitve or defeat_ending_active:
+				check_mouse_on_button(mouse_position, exit_button)
 		elif event.type == pygame.MOUSEBUTTONDOWN:  # 鼠标点击操作
 			mouse_position = pygame.mouse.get_pos()
 			if start_surface_active:  # 在开始界面才检验
@@ -242,7 +247,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 						tree1.text.prepare_message()
 					if tree1.subtract_button.button_rect.collidepoint(mouse_position) and tree1.num > 0:
 						tree1.num -= 1
-						lands -= 1
+						lands += 1
 						money += 35
 						tree1.text.message = str(tree1.num)
 						tree1.text.prepare_message()
@@ -254,7 +259,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 						tree2.text.prepare_message()
 					if tree2.subtract_button.button_rect.collidepoint(mouse_position) and tree2.num > 0:
 						tree2.num -= 1
-						lands -= 1
+						lands += 1
 						money += 70
 						tree2.text.message = str(tree2.num)
 						tree2.text.prepare_message()
@@ -266,7 +271,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 						tree3.text.prepare_message()
 					if tree3.subtract_button.button_rect.collidepoint(mouse_position) and tree3.num > 0:
 						tree3.num -= 1
-						lands -= 1
+						lands += 1
 						money += 105
 						tree3.text.message = str(tree3.num)
 						tree3.text.prepare_message()
@@ -279,7 +284,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 						factory1.text.prepare_message()
 					if factory1.subtract_button.button_rect.collidepoint(mouse_position) and factory1.num > 0:
 						factory1.num -= 1
-						lands -= 1
+						lands += 1
 						money += 140
 						factory1.text.message = str(factory1.num)
 						factory1.text.prepare_message()
@@ -291,7 +296,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 						factory2.text.prepare_message()
 					if factory2.subtract_button.button_rect.collidepoint(mouse_position) and factory2.num > 0:
 						factory2.num -= 1
-						lands -= 1
+						lands += 1
 						money += 245
 						factory2.text.message = str(factory2.num)
 						factory2.text.prepare_message()
@@ -303,7 +308,7 @@ def check_events(screen, start_button, load_button, settings_button, about_us_bu
 						factory3.text.prepare_message()
 					if factory3.subtract_button.button_rect.collidepoint(mouse_position) and factory3.num > 0:
 						factory3.num -= 1
-						lands -= 1
+						lands += 1
 						money += 420
 						factory3.text.message = str(factory3.num)
 						factory3.text.prepare_message()
@@ -406,6 +411,11 @@ def update_data(money_text, date_text, land_text, c_num_text, support_text, tree
 	global money
 	global support
 	global c
+	global lands
+	global start_active
+	global win_ending_acitve
+	global defeat_ending_active
+
 	if start_active:#在游戏状态才更新数据
 		#日期
 		month += 1/10
@@ -415,38 +425,55 @@ def update_data(money_text, date_text, land_text, c_num_text, support_text, tree
 		date_text.message = str(int(year)) + '年' + str(int(month)) + '月'
 		date_text.prepare_message()
 		# #资金
-		money += factory1.num * 20 + factory2.num * 35 + factory3.num * 60
-		money_text.message = '资金:' + str(money)
+		money += factory1.num * 2 + factory2.num * 3.5 + factory3.num * 6
+		money_text.message = '资金:' + str(int(money)) + '万'
 		money_text.prepare_message()
 		#支持率
 		if (tree1.num + tree2.num + tree3.num) < 15:
-			support -= (((15 - (tree1.num + tree2.num + tree3.num)) / 15) * 3
-		if factory2.num > 5:
-			support -= (factory2.num - 5) / 5) * 3
-		support_text.message = '支持率:' + str(int(support))
+			support -= ((15 - (tree1.num + tree2.num + tree3.num)) / 15) * 0.3
+		if (factory2.num > 5):
+			support -= (factory2.num - 5) / 5 * 0.3
+		support_text.message = '支持率:' + str(int(support)) + '%'
 		support_text.prepare_message()
 		#碳总量
-		c += ((factory1.num * 6 + factory1.num * 10 + factory3.num * 3) -(tree1.num * 2 + tree2.num * 5 + tree3.num * 7) + (10 / ((propaganda1.num * 1 + propaganda2.num * 2 + propaganda3.num * 3) + 10)) * 15)
-		c_num_text.message = str(int(c))
+		c += ((factory1.num * 0.6 + factory1.num * 1 + factory3.num * 0.3) -(tree1.num * 0.2 + tree2.num * 0.5 + tree3.num * 0.7) + (10 / ((propaganda1.num * 1 + propaganda2.num * 2 + propaganda3.num * 3) + 10)) * 1.5)
+		c_num_text.message = str(int(c)) + 'GT'
 		c_num_text.prepare_message()
+		#土地剩余
+		land_text.message = '土地剩余' + str(lands)
+		land_text.prepare_message()
 
 		game_warning(support, money, c)
 
+		#游戏结束的判定
+		if money < -2000 or support < 15 or c > 3000:
+			start_active = False
+			defeat_ending_active = True
+		money_temp = money
+		c_temp = c
+		if money - money_temp > 30 and c - c_temp <= 0:
+			start_active = False
+			win_ending_active = True
 def game_warning(support, money, c):
 	global start_active
 	global support_warning_active
 	global money_warning_active
 	global c_warning_active
+	global support_time
+	global money_time
+	global c_time
 
-	if support < 50:
+	if support < 50 and support_time:
 		start_active = False
 		support_warning_active = True
-	elif money < 0:
+		support_time = 0 #只提醒一次
+	elif money < 0 and money_time:
 		start_active = False
 		money_warning_active = True
-	elif c > 2700:
+		money_time = 0
+	elif c > 2700 and c_time:
 		start_active = False
 		c_warning_active = True
-
+		c_time = 0 
 
 

@@ -21,7 +21,7 @@ def main():
     start_button = Button(screen, screen_rect.centerx, screen_rect.centery - 190, 210, 80, (20, 20, 20), (200, 200, 200), '开始游戏', 'simsunnsimsun', 50)
     load_button = Button(screen, screen_rect.centerx, screen_rect.centery - 90, 210, 80, (20, 20, 20), (200, 200, 200), '加载存档', 'simsunnsimsun', 50)
     settings_button = Button(screen, screen_rect.centerx, screen_rect.centery + 10, 210, 80, (20, 20, 20), (200, 200, 200), '设置', 'simsunnsimsun', 50)
-    about_us_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), '关于我们', 'simsunnsimsun', 50)
+    about_us_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), '关于游戏', 'simsunnsimsun', 50)
     return_button = Button(screen, screen_rect.centerx, screen_rect.centery + 110, 210, 80, (20, 20, 20), (200, 200, 200), '返回', 'simsunnsimsun', 50)
     # 设置弹出菜单按钮
     continue_button = Button(screen, screen_rect.centerx, screen_rect.centery - 210, 210, 80, (20, 20, 20), (200, 200, 200), '继续游戏', 'simsunnsimsun', 50)
